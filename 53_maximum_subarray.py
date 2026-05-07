@@ -19,7 +19,31 @@ Output: 23
 
 from typing import List
 
+# Time: O(n) | Space: O(1)
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+
+        max_current = max_global = nums[0]
+
+        for i in range(1, len(nums)):
+            max_current = max(nums[i], max_current + nums[i])
+            if max_current > max_global:
+                max_global = max_current
+
+        return max_global
+
 # KADANE'S ALGORITHM
+# It says:
+# “Take the better option between:
+# Starting fresh with only current number, or
+# Continuing with previous sum”
+
+# Even if we add a negative number, as long as the total is better than starting fresh, we continue.
+
+
+
 # at every index ask one question:
 # is it better to extend the previous subarray, or start fresh here?
 #
@@ -43,17 +67,4 @@ from typing import List
 # i=8  num=4   max_current = max(4,  1+4)  = max(4, 5)   = 5   max_global=6
 # result = 6 ✓
 
-# Time: O(n) | Space: O(1)
-class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
-        if not nums:
-            return 0
 
-        max_current = max_global = nums[0]
-
-        for i in range(1, len(nums)):
-            max_current = max(nums[i], max_current + nums[i])
-            if max_current > max_global:
-                max_global = max_current
-
-        return max_global
