@@ -90,6 +90,24 @@ def top_k_largest(nums, k):
             heapq.heappop(heap)       # kick out the smallest
     return sorted(heap, reverse=True)
 
+# soln2 : 
+
+import heapq
+
+def top_k_largest_max_heap(nums, k):
+    # 1. Negate all numbers to simulate a max-heap
+    max_heap = [-num for num in nums]
+    
+    # 2. Transform the list into a heap in-place
+    heapq.heapify(max_heap)
+    
+    # 3. Pop the k largest elements (and negate them back)
+    result = []
+    for _ in range(k):
+        result.append(-heapq.heappop(max_heap))
+        
+    return result
+
 print(top_k_largest([5, 2, 8, 1, 9, 3, 7], 3))   # [9, 8, 7]
 
 
